@@ -1,4 +1,4 @@
-# Buckler: Fast Zero Knowledge Proofs for MGHE Keys & Ciphertexts
+# CKKS-PIOP
 
 You need to install nightly toolchain of rustc to run the code.
 
@@ -6,10 +6,11 @@ You need to install nightly toolchain of rustc to run the code.
 $ RUSTFLAGS="-C target-cpu=native" cargo run --release
 LogN: 14
 Logn: 12
-gen_key: 258.327267ms
-new_prover: 434.695927ms
-new_verifier: 402.669869ms
-ternary_pk_proof: 26.032651112s
-verify_ternary_pk_proof: 2.827723316s
-verify_ternary_pk_proof result: true
+Log Q: 429
+new_prover: 419.602996ms
+new_verifier: 391.027531ms
+keygen: 2.885791583s
+prove_ckks: 366.453087052s
+verify_ckks: 47.950314227s
+CKKS: true
 ```
