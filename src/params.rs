@@ -26,7 +26,7 @@ impl Parameters {
             b: 10792,
             r: 32,
 
-            n: 1 << 12,
+            n: 1 << 13,
             N: 1 << 14,
 
             s1: 10.0,
@@ -42,7 +42,7 @@ impl Parameters {
         };
         let celpc_params = celpc::Parameters::new(celpc_params_literal);
 
-        let bfv_params = rlwe::Parameters::new(1 << 14, &celpc_params.p, 1, 128, 0);
+        let bfv_params = rlwe::Parameters::new(1 << 14, &celpc_params.p, 1, 256, 0);
 
         return Parameters::new(&bfv_params, &celpc_params);
     }

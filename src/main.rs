@@ -20,7 +20,7 @@ fn main() {
     let mut verifier = Verifier::new(&params, &ck);
     println!("new_verifier: {:?}", now.elapsed());
 
-    let ct_count = 2;
+    let ct_count = 1;
     let mut cts = Vec::with_capacity(ct_count);
 
     let mut kg = rlwe::KeyGenerator::new(&params.rlwe);
@@ -31,7 +31,7 @@ fn main() {
     let now = Instant::now();
     let sk = kg.gen_secret_key();
     for _ in 0..ct_count {
-        cts.push(kg.gen_encryption(&sk, &m_ntt, 32));
+        cts.push(kg.gen_encryption(&sk, &m_ntt, 16));
     }
     let pk = kg.gen_public_key(&sk);
     let rlk = kg.gen_relin_key(&sk);
