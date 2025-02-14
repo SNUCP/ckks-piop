@@ -5,7 +5,7 @@ use std::time::Instant;
 use ckks_piop::{celpc, rlwe, *};
 
 fn main() {
-    let params = Parameters::log_n_14_pk();
+    let params = Parameters::log_n_14();
     println!("LogN: {}", params.rlwe.n.ilog2());
     println!("Logn: {}", params.pcs.n.ilog2());
     println!("Log Q: {}", params.rlwe.q.significant_bits());

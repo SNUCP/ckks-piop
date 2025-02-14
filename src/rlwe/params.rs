@@ -15,23 +15,29 @@ impl Parameters {
     pub fn new(
         n: usize,
         q: &Integer,
+        q_bits: &[usize],
         dnum: usize,
         s_hamming_weight: usize,
         log_e_bound: usize,
     ) -> Self {
-        let q_rns_cnt = q.significant_bits() as usize / 54;
+        let q_rns_cnt = q_bits.len();
         let mut q_rns = Vec::with_capacity(q_rns_cnt);
-        let mut qq = Integer::from((1u64 << 54) + 1);
         let nn = Integer::from(2 * n);
-        loop {
-            if q_rns.len() == q_rns_cnt {
-                break;
-            }
 
-            if qq.is_probably_prime(30) != rug::integer::IsPrime::No {
-                q_rns.push(qq.to_u64().unwrap());
+        for i in 0..q_rns_cnt {
+            let mut qq = Integer::from((1u64 << q_bits[i]) + 1);
+            loop {
+                if q_rns.iter().any(|x| x == &qq.to_u64().unwrap()) {
+                    qq += &nn;
+                    continue;
+                }
+
+                if qq.is_probably_prime(30) != rug::integer::IsPrime::No {
+                    q_rns.push(qq.to_u64().unwrap());
+                    break;
+                }
+                qq += &nn;
             }
-            qq += &nn;
         }
 
         let gadget_cnt = q_rns_cnt.div_ceil(dnum);
